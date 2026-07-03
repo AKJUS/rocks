@@ -48,9 +48,9 @@ def identify(id_, return_id=False, return_aliases=False, local=True, progress=Fa
     return_id : bool
         Return the SsODNet ID of the asteroid as third member of
         the tuple. Default is False.
-    return_list : bool
+    return_aliases : bool
         Return the known aliases of the asteroid as third member of
-        the tuple. Default is False.
+        the tuple. Default is False. Requires internet connection.
     local : bool
         Try resolving the name locally first. Default is True.
     progress : bool
@@ -97,6 +97,10 @@ def identify(id_, return_id=False, return_aliases=False, local=True, progress=Fa
     if not id_:
         logger.warning("Received empty list of identifiers.")
         return (None, np.nan) if not return_id else (None, np.nan, None)  # type: ignore
+
+    # Aliases require remote query
+    if return_aliases:
+        local = False
 
     # ------
     # For a single name, try local lookup right away, async process has overhead
