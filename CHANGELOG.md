@@ -1,3 +1,7 @@
+# 1.10.2 - 2026-07-05
+- Fix retrieval of aliases with rocks.identify
+- Reduce version requirement of pyarrow
+
 # 1.10.1 - 2026-06-26
 - Fixed minor issues in ssoCard and datacloud parsing
 
