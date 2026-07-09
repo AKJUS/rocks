@@ -27,12 +27,12 @@ def add_paths(cls, instance, parent):
             if keyword.iskeyword(name.strip("_")):
                 name = name.strip("_")
 
-            if any(
-                parameter in parent for parameter in ["color", "phase_function", "spin"]
-            ):
-                value.path = f"{parent}.<id>.{name}"
-            else:
-                value.path = f"{parent}.{name}"
+            # if any(
+            #     parameter in parent for parameter in ["color", "phase_function", "spin"]
+            # ):
+            #     value.path = f"{parent}.<id>.{name}"
+            # else:
+            value.path = f"{parent}.{name}"
     return instance
 
 
@@ -180,7 +180,7 @@ class FloatValue(Parameter):
     @pydantic.model_validator(mode="before")
     def _compute_mean_error(cls, values):
         # If the value is a float, convert it to a dict with value and error keys
-        if isinstance(values, float):
+        if isinstance(values, (float, int)):
             values = {"value": values, "error": {"min": np.nan, "max": np.nan}}
         if "error" in values:
             if "min" in values["error"] and "max" in values["error"]:
@@ -907,7 +907,7 @@ class Phase(Parameter):
 
     def __str__(self):
         if not np.isnan(self.H.value):
-            return rf"H: {self.H.value:.2f}  G1: {self.G1.value:.2f}  G2: {self.G2.value:.2f} {self.bibref.shortbib}"
+            return rf"H: {self.H.value:.2f} G1: {self.G1.value:.2f}  G2: {self.G2.value:.2f} {self.bibref.shortbib}"
         return "No phase function on record in this filter."
 
     _convert_list_to_parameterlist: classmethod = pydantic.field_validator(
