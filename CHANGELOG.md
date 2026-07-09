@@ -1,3 +1,6 @@
+# 1.10.3 - 2026-07-09
+- Fix conversion of integer error values (#50)
+
 # 1.10.2 - 2026-07-05
 - Fix retrieval of aliases with rocks.identify
 - Reduce version requirement of pyarrow
